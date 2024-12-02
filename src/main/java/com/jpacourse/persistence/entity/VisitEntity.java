@@ -43,6 +43,8 @@ public class VisitEntity {
 		this.time = time;
 	}
 
+	// Relacja jednostronna: `VisitEntity` jest stroną dziecka (wskazuje właściciela relacji w bazie danych)
+
 	@ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
     private DoctorEntity doctor;
@@ -55,6 +57,7 @@ public class VisitEntity {
         this.doctor = doctor;
     }
 
+	// Relacja jednostronna: `VisitEntity` jest stroną dziecka (wskazuje właściciela relacji w bazie danych)
 
 	@ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
@@ -69,6 +72,7 @@ public class VisitEntity {
 	}
 
 
+	// Relacja dwustronna: `VisitEntity` jest stroną rodzica, `MedicalTreatmentEntity` jest dzieckiem (właścicielem relacji)
 	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MedicalTreatmentEntity> treatment = new ArrayList<>();
 

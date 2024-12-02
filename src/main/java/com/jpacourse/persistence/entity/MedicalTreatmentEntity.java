@@ -51,6 +51,7 @@ public class MedicalTreatmentEntity {
 		this.type = type;
 	}
 
+	// `MedicalTreatmentEntity` jest stroną dziecka 
 	@ManyToOne
     @JoinColumn(name = "visit_id", nullable = false)
     private VisitEntity visit;
