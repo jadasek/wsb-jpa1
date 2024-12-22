@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "PATIENT")
 public class PatientEntity {
@@ -32,6 +34,7 @@ public class PatientEntity {
 	private String patientNumber;
 
 	@Column(nullable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 
 	public Long getId() {

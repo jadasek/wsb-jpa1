@@ -3,6 +3,9 @@ package com.jpacourse.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PatientTO {
 
     private Long id;
@@ -11,7 +14,11 @@ public class PatientTO {
     private String telephoneNumber;
     private String email;
     private String patientNumber;
+    
+    @JsonProperty("dateOfBirth")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+    
     private Integer insuranceNumber;
     private List<VisitTO> visits;
 

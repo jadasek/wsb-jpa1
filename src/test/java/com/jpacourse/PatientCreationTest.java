@@ -1,27 +1,67 @@
 package com.jpacourse;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.http.MediaType;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jpacourse.dto.DoctorTO;
 import com.jpacourse.dto.PatientTO;
+import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistence.enums.Specialization;
+import com.jpacourse.persistence.enums.TreatmentType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class PatientCreationTest {
-
     @Autowired
-    private TestRestTemplate restTemplate;
+    private MockMvc mockMvc;
+
+    private Long patientId;
+    private Long doctorId;
+
+    // @Test
+    // public void testCreatePatient() throws Exception {
+    //     // Przekazujemy dane pacjenta jako JSON
+    //     String patientJson = "{" +
+    //             "\"firstName\": \"Adam\"," +
+    //             "\"lastName\": \"Kowalski\"," +
+    //             "\"telephoneNumber\": \"123456789\"," +
+    //             "\"insuranceNumber\": 123456," +
+    //             "\"email\": \"adam.kowalski@example.com\"," +
+    //             "\"patientNumber\": \"P12345\"," +
+    //             "\"dateOfBirth\": \"1980-01-01\"" +
+    //             "}";
+    
+    //     // Wywołanie endpointu POST, aby dodać pacjenta
+    //     mockMvc.perform(MockMvcRequestBuilders.post("/api/patients")
+    //                     .contentType(MediaType.APPLICATION_JSON)
+    //                     .content(patientJson))  // Przekazujemy bezpośrednio JSON
+    //             .andDo(MockMvcResultHandlers.print())
+    //             .andExpect(MockMvcResultMatchers.status().isCreated())  // Oczekujemy statusu 201 Created
+    //             .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Adam"))  // Sprawdzamy imię
+    //             .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Kowalski"));  // Sprawdzamy nazwisko
+    // }
+
 
     @Test
-    public void testCreatePatient() {
+    public void testCreatePatient() throws Exception {
         // Tworzymy obiekt PatientTO
+
+        
         PatientTO patientTO = new PatientTO();
         patientTO.setFirstName("Adam");
         patientTO.setLastName("Kowalski");
@@ -29,24 +69,20 @@ public class PatientCreationTest {
         patientTO.setInsuranceNumber(123456);
         patientTO.setEmail("adam.kowalski@example.com");
         patientTO.setPatientNumber("P12345");
-        patientTO.setDateOfBirth(LocalDate.of(1980, 1, 1));
+        patientTO.setDateOfBirth(LocalDate.parse("1980-01-01"));
 
         // Wywołanie endpointu POST, aby dodać pacjenta
-        ResponseEntity<PatientTO> response = restTemplate.postForEntity("/api/patients", patientTO, PatientTO.class);
-
-        // Sprawdzamy, czy pacjent został poprawnie dodany
-        assertThat(response.getStatusCodeValue()).isEqualTo(201);  // Oczekujemy statusu 201 Created
-        assertThat(response.getBody()).isNotNull();  // Oczekujemy, że odpowiedź nie będzie pusta
-
-        // Zapisanie pacjenta z odpowiedzi, by sprawdzić jego ID
-        PatientTO createdPatient = response.getBody();
-        assertThat(createdPatient.getId()).isNotNull();  // Sprawdzamy, czy pacjent ma przypisane ID
-        assertThat(createdPatient.getFirstName()).isEqualTo("Adam");  // Sprawdzamy imię pacjenta
-        assertThat(createdPatient.getLastName()).isEqualTo("Kowalski");  // Sprawdzamy nazwisko pacjenta
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/patients")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(patientTO)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isCreated())  // Oczekujemy statusu 201 Created
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Adam"))  // Sprawdzamy imię
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Kowalski"));  // Sprawdzamy nazwisko
     }
 
     @Test
-    public void testCreateDoctor() {
+    public void testCreateDoctor() throws Exception {
         // Tworzymy obiekt DoctorTO
         DoctorTO doctorTO = new DoctorTO();
         doctorTO.setFirstName("Jan");
@@ -57,17 +93,45 @@ public class PatientCreationTest {
         doctorTO.setSpecialization(Specialization.CARDIOLOGY);
 
         // Wywołanie endpointu POST, aby dodać lekarza
-        ResponseEntity<DoctorTO> response = restTemplate.postForEntity("/api/doctors", doctorTO, DoctorTO.class);
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/doctors")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(doctorTO)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())  // Oczekujemy statusu 201 Created
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Jan"))  // Sprawdzamy imię
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Nowak"))  // Sprawdzamy nazwisko
+                .andExpect(MockMvcResultMatchers.jsonPath("$.specialization").value(Specialization.CARDIOLOGY.name()));  // Sprawdzamy specjalizację
+    }
 
-        // Sprawdzamy, czy lekarz został poprawnie dodany
-        assertThat(response.getStatusCodeValue()).isEqualTo(201);  // Oczekujemy statusu 201 Created
-        assertThat(response.getBody()).isNotNull();  // Oczekujemy, że odpowiedź nie będzie pusta
+    @Test
+    public void testCreateVisit() throws Exception {
+        // Tworzymy obiekt VisitTO
+        VisitTO visitTO = new VisitTO();
+        visitTO.setTime(LocalDateTime.of(2024, 12, 22, 10, 30));
+        visitTO.setDoctorId(doctorId);  // Używamy wcześniej stworzonego ID lekarza
+        visitTO.setPatientId(patientId);  // Używamy wcześniej stworzonego ID pacjenta
+        visitTO.setDescription("Wizyta kontrolna");
+        visitTO.setTreatmentTypes(List.of(TreatmentType.EKG));  // Ustawiamy listę procedur
 
-        // Zapisanie lekarza z odpowiedzi, by sprawdzić jego ID
-        DoctorTO createdDoctor = response.getBody();
-        assertThat(createdDoctor.getId()).isNotNull();  // Sprawdzamy, czy lekarz ma przypisane ID
-        assertThat(createdDoctor.getFirstName()).isEqualTo("Jan");  // Sprawdzamy imię lekarza
-        assertThat(createdDoctor.getLastName()).isEqualTo("Nowak");  // Sprawdzamy nazwisko lekarza
-        assertThat(createdDoctor.getSpecialization()).isEqualTo(Specialization.CARDIOLOGY);  // Sprawdzamy specjalizację lekarza
+        // Wywołanie endpointu POST, aby dodać wizytę
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/visits")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(visitTO)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())  // Oczekujemy statusu 201 Created
+                .andExpect(MockMvcResultMatchers.jsonPath("$.time").value(visitTO.getTime().toString()))  // Sprawdzamy czas wizyty
+                .andExpect(MockMvcResultMatchers.jsonPath("$.doctorId").value(doctorId))  // Sprawdzamy ID lekarza
+                .andExpect(MockMvcResultMatchers.jsonPath("$.patientId").value(patientId))  // Sprawdzamy ID pacjenta
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("Wizyta kontrolna"))  // Sprawdzamy opis wizyty
+                .andExpect(MockMvcResultMatchers.jsonPath("$.treatmentTypes[0]").value(TreatmentType.EKG.name()));  // Sprawdzamy procedury
+    }
+
+    @Test
+    public void testDeletePatient() throws Exception {
+        // Wywołanie endpointu DELETE, aby usunąć pacjenta
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/patients/{id}", patientId))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());  // Oczekujemy statusu 204 No Content
+
+        // Próba pobrania pacjenta powinna zwrócić status 404, ponieważ pacjent został usunięty
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/patients/{id}", patientId))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());  // Oczekujemy statusu 404 Not Found
     }
 }

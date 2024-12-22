@@ -8,8 +8,11 @@ import com.jpacourse.persistence.enums.TreatmentType;
 public class VisitTO {
 
     private LocalDateTime time;
-    private String doctorName;
-    private List<TreatmentType> treatmentTypes;
+    private Long doctorId; // Id lekarza
+    private Long patientId; // Id pacjenta
+    private List<TreatmentType> treatmentTypes; // Typy leczenia
+    private String description; // Opis leczenia
+    private String descriptionTreatment;
 
     public LocalDateTime getTime() {
         return time;
@@ -19,12 +22,20 @@ public class VisitTO {
         this.time = time;
     }
 
-    public String getDoctorName() {
-        return doctorName;
+    public Long getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     public List<TreatmentType> getTreatmentTypes() {
@@ -33,5 +44,21 @@ public class VisitTO {
 
     public void setTreatmentTypes(List<TreatmentType> treatmentTypes) {
         this.treatmentTypes = treatmentTypes;
+    }
+
+    public String getDescriptionTreatment() {
+        return descriptionTreatment;
+    }
+
+    public void setDescriptionTreatment(String descriptionTreatment) {
+        this.descriptionTreatment = descriptionTreatment;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

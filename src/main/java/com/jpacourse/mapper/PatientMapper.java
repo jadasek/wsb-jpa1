@@ -29,7 +29,7 @@ public class PatientMapper {
         List<VisitTO> visitTOs = patient.getVisits().stream().map(visit -> {
             VisitTO visitTO = new VisitTO();
             visitTO.setTime(visit.getTime());
-            visitTO.setDoctorName(visit.getDoctor().getFirstName() + " " + visit.getDoctor().getLastName());
+            visitTO.setDoctorId(visit.getDoctor().getId());  // Zmienione na ID lekarza
             visitTO.setTreatmentTypes(
                     visit.getTreatment().stream().map(MedicalTreatmentEntity::getType).toList()
             );
@@ -40,8 +40,8 @@ public class PatientMapper {
         return to;
     }
 
-       // Mapowanie z PatientTO do PatientEntity
-       public PatientEntity toEntity(PatientTO patientTO) {
+    // Mapowanie z PatientTO do PatientEntity
+    public PatientEntity toEntity(PatientTO patientTO) {
         PatientEntity patientEntity = new PatientEntity();
         patientEntity.setFirstName(patientTO.getFirstName());
         patientEntity.setLastName(patientTO.getLastName());
