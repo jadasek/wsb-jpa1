@@ -1,9 +1,9 @@
 INSERT INTO ADDRESS (id, address_line1, address_line2, city, postal_code)
 VALUES 
-    (1, '123 Main St', '123 Main St', 'Springfield', '62701'),
-    (2, '456 Elm St', '456 Elm St', 'Metropolis', '10001'),
-    (3, '789 Oak St','789 Oak St',  'Gotham', '07030'),
-    (4, '012 Pine St', '012 Pine St', 'Detroit', '67819');
+    (1, '123 Main St', '123 Main St', 'Springfield', '62-030'),
+    (2, '456 Elm St', '456 Elm St', 'Metropolis', '10-001'),
+    (3, '789 Oak St','789 Oak St',  'Gotham', '07-030'),
+    (4, '012 Pine St', '012 Pine St', 'Detroit', '67-819');
 
 -- Relacja jest dwustronna: Doctor jest rodzicem, Visit dzieckiem.
 -- Zmiany w DoctorEntity (np. usunięcie lekarza) kaskadowo usuwają wizyty (CascadeType.ALL).

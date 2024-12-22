@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.mapper.PatientMapper;
+import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.repository.PatientRepository;
 
 @Service
@@ -30,4 +31,27 @@ public class PatientService {
                 .map(patientMapper::toTO)
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
     }
+
+    public void deletePatient(Long id) {
+        // Sprawdzamy, czy pacjent istnieje
+        if (!patientRepository.existsById(id)) {
+            throw new RuntimeException("Patient not found");
+        }
+        
+        // Usuwamy pacjenta
+        patientRepository.deleteById(id);
+    }
+
+    // Dodawanie pacjenta
+    public PatientTO addPatient(PatientTO patientTO) {
+        // Mapujemy DTO na encję
+        PatientEntity patientEntity = patientMapper.toEntity(patientTO);
+        
+        // Zapisujemy pacjenta w bazie
+        PatientEntity savedPatient = patientRepository.save(patientEntity);
+        
+        // Zwracamy zapisany pacjent w postaci DTO
+        return patientMapper.toTO(savedPatient);
+    }
+
 }

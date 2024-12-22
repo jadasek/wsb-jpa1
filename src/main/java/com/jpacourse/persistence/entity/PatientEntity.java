@@ -109,7 +109,7 @@ public class PatientEntity {
 		this.visits = visits;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private AddressEntity address;
 
