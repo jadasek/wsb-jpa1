@@ -5,6 +5,8 @@ public enum Specialization {
 	SURGEON,
 	GP,
 	DERMATOLOGIST,
-	OCULIST
+	OCULIST,
+	CARDIOLOGY,
+	ORTHOPEDICS
 
 }

@@ -23,6 +23,9 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private String telephoneNumber;
 
+	@Column(nullable = false)
+    private Integer insuranceNumber;
+
 	private String email;
 
 	@Column(nullable = false)
@@ -62,6 +65,14 @@ public class PatientEntity {
 	public void setTelephoneNumber(String telephoneNumber) {
 		this.telephoneNumber = telephoneNumber;
 	}
+
+	public Integer getInsuranceNumber() {
+        return insuranceNumber;
+    }
+
+    public void setInsuranceNumber(Integer insuranceNumber) {
+        this.insuranceNumber = insuranceNumber;
+    }
 
 	public String getEmail() {
 		return email;

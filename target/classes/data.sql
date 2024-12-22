@@ -18,10 +18,10 @@ VALUES (2, 'Anna', 'Smith', '987654321', 'anna.smith@example.com', 'D456', 'ORTH
 --Relacja jest jednokierunkowa od strony dziecka (Visit wskazuje na Patient).
 
 
-INSERT INTO PATIENT (id, first_Name, last_Name, telephone_Number, email, patient_Number, date_Of_Birth,address_id)
+INSERT INTO PATIENT (id, first_Name, last_Name, telephone_Number, email, patient_Number, date_Of_Birth,address_id, insurance_number)
 VALUES 
-    (1, 'Alice', 'Johnson', '555123456', 'alice.johnson@example.com', 'PAT001', '1990-04-15',1),
-    (2, 'Bob', 'Brown', '555654321', 'bob.brown@example.com', 'PAT002', '1985-08-22',2);
+    (1, 'Alice', 'Johnson', '555123456', 'alice.johnson@example.com', 'PAT001', '1990-04-15',1,4125162),
+    (2, 'Bob', 'Brown', '555654321', 'bob.brown@example.com', 'PAT002', '1985-08-22',2,91732617);
 
 
 INSERT INTO VISIT (id, description, time, doctor_id,patient_id)
@@ -36,11 +36,35 @@ VALUES (3, 'Fracture Treatment', '2024-12-02 11:30:00', 2, 2);
 INSERT INTO VISIT (id, description, time, doctor_id, patient_id)
 VALUES (4, 'Follow-up Appointment', '2024-12-05 09:00:00', 2, 2);
 
+INSERT INTO VISIT (id, description, time, doctor_id, patient_id)
+VALUES 
+    (5, 'Routine Checkup', '2024-12-06 10:30:00', 1, 1),
+    (6, 'Cardiac Consultation', '2024-12-07 15:00:00', 1, 2),
+    (7, 'Orthopedic Follow-up', '2024-12-08 12:00:00', 2, 1),
+    (8, 'Physical Therapy', '2024-12-09 09:30:00', 2, 2),
+    (9, 'Heart Ultrasound', '2024-12-10 14:00:00', 1, 1),
+    (10, 'Bone Density Test', '2024-12-11 11:00:00', 2, 2),
+    (11, 'Emergency Cardiology Visit', '2024-12-12 16:00:00', 1, 2),
+    (12, 'Post-Surgery Evaluation', '2024-12-13 10:00:00', 2, 1),
+    (13, 'Annual Checkup', '2024-12-14 08:30:00', 1, 1),
+    (14, 'Rehabilitation Session', '2024-12-15 13:00:00', 2, 2);
 
-INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (1, 'Blood Test', 'USG',1);
-INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (2, 'X-ray', 'USG',1);
-INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (3, 'Fracture Cast', 'USG',3);
-INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (4, 'Pain Relief', 'USG',3);
+
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (1, 'Blood Test', 'USG', 1);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (2, 'X-ray', 'RTG', 2);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (3, 'Fracture Cast', NULL, 3);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (4, 'Pain Relief', NULL, 4);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (5, 'Physical Therapy Session', NULL, 5);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (6, 'Cardiac Stress Test', 'EKG', 6);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (7, 'Orthopedic Brace Fitting', NULL, 7);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (8, 'Rehabilitation Exercise', NULL, 8);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (9, 'Heart Ultrasound Scan', 'USG', 9);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (10, 'Bone Density Scan', 'RTG', 10);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (11, 'Emergency Pain Management', NULL, 11);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (12, 'Post-Surgery Wound Care', NULL, 12);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (13, 'Comprehensive Health Check', NULL, 13);
+INSERT INTO MEDICAL_TREATMENT (id, description, Type, visit_id) VALUES (14, 'Rehabilitation Therapy', NULL, 14);
+
 
 
 
