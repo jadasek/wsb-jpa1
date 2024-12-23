@@ -32,22 +32,19 @@ public class PatientDaoTest {
 
     @BeforeEach
     public void setUp() {
-        // Tworzymy pacjenta
         patient = new PatientEntity();
         patient.setFirstName("John");
         patient.setLastName("Doe");
         patient.setTelephoneNumber("123456789");
         patient.setEmail("john.doe@example.com");
-        patient.setDateOfBirth(LocalDate.of(1990, 1, 1)); // Ustaw odpowiednią datę
-        patient.setInsuranceNumber(123411); // Ustawienie numeru ubezpieczenia
+        patient.setDateOfBirth(LocalDate.of(1990, 1, 1)); 
+        patient.setInsuranceNumber(123411); 
         patient.setPatientNumber("AB1211");
 
-
-        // Tworzymy doktora
         doctor = new DoctorEntity();
         doctor.setFirstName("Dr. Jane");
         doctor.setLastName("Smith");
-        doctor.setSpecialization(Specialization.CARDIOLOGY);  // Użyj enum, a nie String
+        doctor.setSpecialization(Specialization.CARDIOLOGY);  
         doctor.setTelephoneNumber("987654321");
         doctor.setDoctorNumber("AI9199");
 
@@ -59,10 +56,7 @@ public class PatientDaoTest {
     @Test
     @Transactional
     public void testAddVisitToPatient() {
-        // Przygotowujemy czas wizyty
         LocalDateTime visitTime = LocalDateTime.of(2024, 12, 23, 10, 0);
-
-        // Wywołanie metody z parametrami
         patient = patientDao.addVisitToPatient(patient.getId(), doctor.getId(), visitTime, "Routine Checkup");
 
         // Sprawdzamy, czy wizyta została dodana

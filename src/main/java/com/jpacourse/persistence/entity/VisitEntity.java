@@ -15,7 +15,7 @@ public class VisitEntity {
 	private Long id;
 
 	private String description;
-
+	private String descriptionTreatment;
 	@Column(nullable = false)
 	private LocalDateTime time;
 
@@ -35,6 +35,14 @@ public class VisitEntity {
 		this.description = description;
 	}
 
+	public String getDescriptionTreatment() {
+        return descriptionTreatment;
+    }
+
+    public void setDescriptionTreatment(String descriptionTreatment) {
+        this.descriptionTreatment = descriptionTreatment;
+    }
+	
 	public LocalDateTime getTime() {
 		return time;
 	}

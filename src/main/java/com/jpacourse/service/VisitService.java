@@ -40,7 +40,6 @@ public class VisitService {
         PatientEntity patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new IllegalArgumentException("Patient not found"));
     
-        // Stwórz nową wizytę
         VisitEntity visitEntity = new VisitEntity();
         visitEntity.setDoctor(doctor);
         visitEntity.setPatient(patient);
@@ -58,13 +57,8 @@ public class VisitService {
                 })
                 .collect(Collectors.toList());
     
-        // Ustaw procedury leczenia w wizycie
         visitEntity.setTreatment(treatments);
-    
-        // Zapisz wizytę w bazie danych
         visitRepository.save(visitEntity);
-    
-        // Zwróć przekształconą wizytę (do DTO)
         return visitMapper.toTO(visitEntity);
     }
     

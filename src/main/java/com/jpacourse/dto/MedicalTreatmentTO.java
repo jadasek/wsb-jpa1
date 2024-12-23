@@ -6,7 +6,7 @@ public class MedicalTreatmentTO {
 
     private Long id;
     private String description;
-    private TreatmentType type;  // Typ leczenia
+    private TreatmentType type;  
 
     // Getters and Setters
     public Long getId() {

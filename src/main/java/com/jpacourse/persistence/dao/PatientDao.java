@@ -18,7 +18,6 @@ public class PatientDao {
 
     @Transactional
     public PatientEntity addVisitToPatient(Long patientId, Long doctorId, LocalDateTime visitTime, String visitDescription) {
-        // Pobieramy pacjenta i doktora
         PatientEntity patient = entityManager.find(PatientEntity.class, patientId);
         DoctorEntity doctor = entityManager.find(DoctorEntity.class, doctorId);
 
@@ -26,9 +25,8 @@ public class PatientDao {
             throw new IllegalArgumentException("Invalid patient or doctor ID");
         }
 
-        // Tworzymy nową encję wizyty
         VisitEntity visit = new VisitEntity();
-        visit.setTime(visitTime);  // Ustawiamy czas wizyty
+        visit.setTime(visitTime); 
         visit.setDescription(visitDescription);
         visit.setDoctor(doctor);
         visit.setPatient(patient);
@@ -43,3 +41,6 @@ public class PatientDao {
         return patient;
     }
 }
+
+//persist: Tylko dla nowych obiektów.
+//merge: Dla nowych lub już istniejących obiektów, które mogą być poza sesją i wymagają synchronizacji ze stanem bazy danych.

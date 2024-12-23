@@ -9,12 +9,32 @@ public class VisitTO {
     private Long id;
  
     private LocalDateTime time;
-    private Long doctorId; // Id lekarza
-    private Long patientId; // Id pacjenta
-    private List<TreatmentType> treatmentTypes; // Typy leczenia
-    private String description; // Opis leczenia
+    private Long doctorId; 
+    private Long patientId; 
+    private List<TreatmentType> treatmentTypes; 
+    private String description; 
     private String descriptionTreatment;
 
+    // Nowe pola
+    private String doctorFirstName;
+    private String doctorLastName;
+
+    // Gettery i settery
+    public String getDoctorFirstName() {
+        return doctorFirstName;
+    }
+
+    public void setDoctorFirstName(String doctorFirstName) {
+        this.doctorFirstName = doctorFirstName;
+    }
+
+    public String getDoctorLastName() {
+        return doctorLastName;
+    }
+
+    public void setDoctorLastName(String doctorLastName) {
+        this.doctorLastName = doctorLastName;
+    }
     public Long getId() {
 		return id;
 	}

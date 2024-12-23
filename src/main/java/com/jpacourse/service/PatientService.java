@@ -43,7 +43,6 @@ public class PatientService {
         patientRepository.deleteById(id);
     }
 
-    // Dodawanie pacjenta
     public PatientTO addPatient(PatientTO patientTO) {
         // Mapujemy DTO na encję
         PatientEntity patientEntity = patientMapper.toEntity(patientTO);

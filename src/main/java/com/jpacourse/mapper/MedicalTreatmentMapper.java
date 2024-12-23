@@ -10,7 +10,7 @@ public class MedicalTreatmentMapper {
     public MedicalTreatmentEntity toEntity(MedicalTreatmentTO treatmentTO) {
         MedicalTreatmentEntity treatmentEntity = new MedicalTreatmentEntity();
         treatmentEntity.setDescription(treatmentTO.getDescription());
-        treatmentEntity.setType(treatmentTO.getType());  // Mapowanie typu leczenia
+        treatmentEntity.setType(treatmentTO.getType());  
         return treatmentEntity;
     }
 
@@ -18,7 +18,7 @@ public class MedicalTreatmentMapper {
         MedicalTreatmentTO treatmentTO = new MedicalTreatmentTO();
         treatmentTO.setId(treatmentEntity.getId());
         treatmentTO.setDescription(treatmentEntity.getDescription());
-        treatmentTO.setType(treatmentEntity.getType());  // Mapowanie typu leczenia
+        treatmentTO.setType(treatmentEntity.getType());  
         return treatmentTO;
     }
 }

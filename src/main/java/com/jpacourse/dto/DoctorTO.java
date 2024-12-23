@@ -11,9 +11,8 @@ public class DoctorTO {
     private String email;
     private String doctorNumber;
     private Specialization specialization;
-    private Long address; // Zakładamy, że adres jest mapowany jako ID
+    private Long address; 
 
-    // Gettery i Settery
 
     public Long getId() {
         return id;

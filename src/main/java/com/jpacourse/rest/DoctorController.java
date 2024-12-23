@@ -25,7 +25,6 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DoctorTO> getDoctorById(@PathVariable Long id) {
-        // Wywołanie serwisu do pobrania lekarza po ID
         DoctorTO doctorTO = doctorService.getDoctorById(id);
 
         if (doctorTO == null) {

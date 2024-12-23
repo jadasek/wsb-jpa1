@@ -35,8 +35,6 @@ public class DoctorMapper {
         doctorEntity.setDoctorNumber(doctorTO.getDoctorNumber());
         doctorEntity.setSpecialization(doctorTO.getSpecialization());
 
-        // Ustawiamy adres, jeśli jest w DTO
-        // Załóżmy, że mamy adres z ID, ale można to rozszerzyć na pełne mapowanie obiektu Address
         if (doctorTO.getAddress() != null) {
             AddressEntity addressEntity = new AddressEntity();
             addressEntity.setId(doctorTO.getAddress());
