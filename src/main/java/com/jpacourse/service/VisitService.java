@@ -7,6 +7,9 @@ import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.dto.VisitTO;
 import com.jpacourse.mapper.VisitMapper;
 import com.jpacourse.repository.VisitRepository;
+
+import java.util.Optional;
+
 import com.jpacourse.repository.DoctorRepository;
 import com.jpacourse.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +66,14 @@ public class VisitService {
     
         // Zwróć przekształconą wizytę (do DTO)
         return visitMapper.toTO(visitEntity);
+    }
+    
+    public VisitTO getVisitById(Long id) {
+        // Pobieranie wizyty z bazy danych
+        Optional<VisitEntity> visitEntity = visitRepository.findById(id);
+    
+        // Jeśli wizyta istnieje, mapujemy ją na VisitTO, w przeciwnym razie zwracamy null
+        return visitEntity.map(visitMapper::toTO).orElse(null);  // Używamy mapera do konwersji
     }
     
     

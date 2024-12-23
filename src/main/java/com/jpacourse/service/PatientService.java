@@ -2,6 +2,7 @@ package com.jpacourse.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jpacourse.dto.PatientTO;
@@ -26,10 +27,10 @@ public class PatientService {
                 .toList();
     }
 
-    public PatientTO getPatientById(Long id) {
+    public ResponseEntity<PatientTO> getPatientById(Long id) {
         return patientRepository.findById(id)
-                .map(patientMapper::toTO)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+                .map(patient -> ResponseEntity.ok(patientMapper.toTO(patient)))  // Jeśli pacjent znaleziony, zwróć 200 OK z obiektem
+                .orElseGet(() -> ResponseEntity.status(404).build());  // Jeśli pacjent nie znaleziony, zwróć 404 Not Found
     }
 
     public void deletePatient(Long id) {

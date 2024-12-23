@@ -7,5 +7,6 @@ import com.jpacourse.persistence.entity.PatientEntity;
 
 @Repository
 public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
+    
 }
 

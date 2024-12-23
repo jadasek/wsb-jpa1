@@ -28,4 +28,11 @@ public class DoctorService {
         // Zwracamy zapisany lekarz w postaci DTO
         return doctorMapper.toTO(savedDoctor);
     }
+
+    public DoctorTO getDoctorById(Long id) {
+        return doctorRepository.findById(id)
+                .map(doctorMapper::toTO)  // Mapowanie z encji do DTO
+                .orElse(null);  // Jeśli lekarz nie zostanie znaleziony, zwróci null
+    }
+    
 }

@@ -6,13 +6,22 @@ import java.util.List;
 import com.jpacourse.persistence.enums.TreatmentType;
 
 public class VisitTO {
-
+    private Long id;
+ 
     private LocalDateTime time;
     private Long doctorId; // Id lekarza
     private Long patientId; // Id pacjenta
     private List<TreatmentType> treatmentTypes; // Typy leczenia
     private String description; // Opis leczenia
     private String descriptionTreatment;
+
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
     public LocalDateTime getTime() {
         return time;

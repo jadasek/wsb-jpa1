@@ -15,7 +15,6 @@ public class PatientTO {
     private String email;
     private String patientNumber;
     
-    @JsonProperty("dateOfBirth")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     
