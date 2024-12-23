@@ -193,7 +193,7 @@ public class PatientCreationTest {
     mockMvc.perform(MockMvcRequestBuilders.get("/api/patients/{id}", createdPatient.getId()))
         .andExpect(MockMvcResultMatchers.status().isNotFound());  // Oczekujemy statusu 404 Not Found
         
-    // Próba pobrania pacjenta powinna zwrócić status 200, ponieważ doctor nie jest usuwany wraz z pacjentem
+    // Próba pobrania doktora powinna zwrócić status 200, ponieważ doktor nie jest usuwany wraz z pacjentem
     mockMvc.perform(MockMvcRequestBuilders.get("/api/doctors/{id}", createdDoctor.getId()))
         .andExpect(MockMvcResultMatchers.status().isOk());  // Oczekujemy statusu 200 OK
     }
