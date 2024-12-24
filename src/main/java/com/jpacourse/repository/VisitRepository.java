@@ -7,6 +7,7 @@ import com.jpacourse.persistence.entity.VisitEntity;
 
 @Repository
 public interface VisitRepository extends JpaRepository<VisitEntity, Long> {
+    void deleteAllByPatientId(Long patientId);
 }
 
 

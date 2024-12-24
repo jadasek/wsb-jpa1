@@ -8,7 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class PatientDao {
@@ -40,7 +43,36 @@ public class PatientDao {
         // Zwracamy zaktualizowanego pacjenta
         return patient;
     }
-}
 
-//persist: Tylko dla nowych obiektów.
-//merge: Dla nowych lub już istniejących obiektów, które mogą być poza sesją i wymagają synchronizacji ze stanem bazy danych.
+    @Transactional
+    public List<PatientEntity> findPatientsByLastName(String lastName) {
+        String jpql = "SELECT p FROM PatientEntity p WHERE p.lastName = :lastName";
+        TypedQuery<PatientEntity> query = entityManager.createQuery(jpql, PatientEntity.class);
+        query.setParameter("lastName", lastName);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<VisitEntity> findVisitsByPatientId(Long patientId) {
+        String jpql = "SELECT v FROM VisitEntity v WHERE v.patient.id = :patientId";
+        TypedQuery<VisitEntity> query = entityManager.createQuery(jpql, VisitEntity.class);
+        query.setParameter("patientId", patientId);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<PatientEntity> findPatientsWithMoreThanXVisits(int visitCount) {
+        String jpql = "SELECT p FROM PatientEntity p WHERE SIZE(p.visits) > :visitCount";
+        TypedQuery<PatientEntity> query = entityManager.createQuery(jpql, PatientEntity.class);
+        query.setParameter("visitCount", visitCount);
+        return query.getResultList();
+    }
+
+    @Transactional
+    public List<PatientEntity> findPatientsBornAfter(LocalDate date) {
+        String jpql = "SELECT p FROM PatientEntity p WHERE p.dateOfBirth > :date";
+        TypedQuery<PatientEntity> query = entityManager.createQuery(jpql, PatientEntity.class);
+        query.setParameter("date", date);
+        return query.getResultList();
+    }
+}

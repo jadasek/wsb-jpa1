@@ -18,11 +18,10 @@ VALUES (2, 'Anna', 'Smith', '987654321', 'anna.smith@example.com', 'D456', 'ORTH
 --Relacja jest jednokierunkowa od strony dziecka (Visit wskazuje na Patient).
 
 
-INSERT INTO PATIENT (id, first_Name, last_Name, telephone_Number, email, patient_Number, date_Of_Birth,address_id, insurance_number)
+INSERT INTO PATIENT (id, first_Name, last_Name, telephone_Number, email, patient_Number, date_Of_Birth, address_id, insurance_number, version)
 VALUES 
-    (1, 'Alice', 'Johnson', '555123456', 'alice.johnson@example.com', 'PAT001', '1990-04-15',1,4125162),
-    (2, 'Bob', 'Brown', '555654321', 'bob.brown@example.com', 'PAT002', '1985-08-22',2,91732617);
-
+    (1, 'Alice', 'Johnson', '555123456', 'alice.johnson@example.com', 'PAT001', '1990-04-15', 1, 4125162, 1),
+    (2, 'Bob', 'Brown', '555654321', 'bob.brown@example.com', 'PAT002', '1985-08-22', 2, 91732617, 1);
 
 INSERT INTO VISIT (id, description, time, doctor_id,patient_id)
 VALUES (1, 'Regular Checkup', '2024-12-01 10:00:00', 1, 1);

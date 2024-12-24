@@ -96,6 +96,16 @@ public class PatientEntity {
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
+	@Version
+    private int version;
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;

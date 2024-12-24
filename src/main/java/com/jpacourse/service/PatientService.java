@@ -2,12 +2,15 @@ package com.jpacourse.service;
 
 import java.util.List;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.mapper.PatientMapper;
+import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.PatientEntity;
+import com.jpacourse.persistence.entity.VisitEntity;
 import com.jpacourse.repository.PatientRepository;
 
 @Service
@@ -15,10 +18,12 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
+    private final PatientDao patientDao;
 
-    public PatientService(PatientRepository patientRepository, PatientMapper patientMapper) {
+    public PatientService(PatientRepository patientRepository, PatientMapper patientMapper, PatientDao patientDao) {
         this.patientRepository = patientRepository;
         this.patientMapper = patientMapper;
+        this.patientDao = patientDao;
     }
 
     public List<PatientTO> getAllPatients() {
@@ -54,4 +59,7 @@ public class PatientService {
         return patientMapper.toTO(savedPatient);
     }
 
+    public List<VisitEntity> findAllVisitsByPatientId(Long patientId) {
+        return patientDao.findVisitsByPatientId(patientId);
+    }
 }
