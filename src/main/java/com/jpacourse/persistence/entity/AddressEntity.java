@@ -58,6 +58,7 @@ public class AddressEntity {
 		this.postalCode = postalCode;
 	}
 
+	// Rodzic - nie ma klucza obcego
 	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
     private DoctorEntity doctor;
 
@@ -69,6 +70,7 @@ public class AddressEntity {
 		this.doctor = doctor;
 	}
 
+	// Rodzic - nie ma klucza obcego
 	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
     private PatientEntity patient;
 

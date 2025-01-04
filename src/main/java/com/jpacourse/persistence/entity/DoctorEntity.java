@@ -90,6 +90,7 @@ public class DoctorEntity {
 		this.specialization = specialization;
 	}
 
+	// `DoctorEntity` jest rodzicem
 	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VisitEntity> visits = new ArrayList<>();
 
@@ -101,6 +102,7 @@ public class DoctorEntity {
         this.visits = visits;
     }
 
+	// Dziecko - posiada klucz obcy i zarządza relacją
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private AddressEntity address;
